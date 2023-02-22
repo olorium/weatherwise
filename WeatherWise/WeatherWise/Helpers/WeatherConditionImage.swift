@@ -9,6 +9,10 @@ import UIKit
 import WeatherKit
 
 struct WeatherConditionImage {
+    
+    /// Provides image based on weather conditions categories.
+    /// - Parameter condition: Weather condition.
+    /// - Returns: appropriate `UIImage`.
     static func image(for condition: WeatherCondition) -> UIImage {
         switch condition.id.category {
         case .atmosphere: return UIImage(systemName: "wind")!

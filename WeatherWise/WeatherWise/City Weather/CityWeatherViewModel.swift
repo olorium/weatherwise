@@ -9,9 +9,10 @@ import UIKit
 import Combine
 import WeatherKit
 
-
+/// ViewModel to manage `CityWeatherViewController`.
 class CityWeatherViewModel {
-    var date: String {
+    // MARK: - Private properties.
+    private var date: String {
         dateFormatter.string(from: Date())
     }
     
@@ -23,15 +24,17 @@ class CityWeatherViewModel {
     
     private let city: City
     private let tempFormatter: MeasurementFormatter
-    
-    @Published var dailyForecast: [DailyForecastViewModel] = []
-    
-    @Published var hourlyForecast: [HourlyForecastViewModel] = []
-    
     private lazy var weatherPublisher: AnyPublisher<OneCallResult?, Never> = {
         Current.weatherManager.weatherPublisher(for: city)
     }()
     
+    // MARK: - Published properties.
+    @Published var dailyForecast: [DailyForecastViewModel] = []
+    @Published var hourlyForecast: [HourlyForecastViewModel] = []
+    
+    
+    /// Init for `CityWeatherViewModel`.
+    /// - Parameter city: City to show forecast.
     init(city: City) {
         self.city = city
         
@@ -80,6 +83,7 @@ class CityWeatherViewModel {
             .assign(to: &$hourlyForecast)
     }
     
+    // MARK: - Computed properties.
     var cityName: String {
         city.name
     }

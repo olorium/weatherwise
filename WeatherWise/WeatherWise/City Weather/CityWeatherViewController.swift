@@ -9,41 +9,54 @@ import UIKit
 import WeatherKit
 import Combine
 
+/// ViewController to present weather conditions in one city.
 class CityWeatherViewController: UIViewController {
     
+    /// Collection to present forecasts.
     @IBOutlet weak var collectionView: UICollectionView!
     
-    enum Section: Int, CaseIterable {
+    /// City to present forecast for.
+    var city: City? {
+        didSet {
+            if city != nil {
+                viewModel = CityWeatherViewModel(city: city!)
+            }
+        }
+    }
+    
+    // MARK: - Private properties
+    
+    /// Enum for forecast types.
+    private enum Section: Int, CaseIterable {
         case currentWeather
         case hourlyForecast
         case weeklyForecast
     }
     
-    var city: City! {
-        didSet {
-            viewModel = CityWeatherViewModel(city: city!)
-        }
-    }
+    /// ViewModel to manage this view.
+    private var viewModel: CityWeatherViewModel?
     
-    private var viewModel: CityWeatherViewModel!
+    /// Cancellables.
     private var cancellables = Set<AnyCancellable>()
     
+    /// Array of daily forecasts.
     private var dailyForecasts: [DailyForecastViewModel] = [] {
         didSet {
             collectionView.reloadSections(IndexSet([Section.weeklyForecast.rawValue]))
         }
     }
     
+    /// Array of hourly forecasts.
     private var hourlyForecasts: [HourlyForecastViewModel] = [] {
         didSet {
             collectionView.reloadSections(IndexSet([Section.hourlyForecast.rawValue]))
         }
     }
-    
+    // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = viewModel.date
+        navigationItem.title = viewModel?.date
         edgesForExtendedLayout = .all
         
         collectionView.backgroundView = GradientView(colors: [.systemBlue, .systemTeal])
@@ -52,17 +65,20 @@ class CityWeatherViewController: UIViewController {
         setupCollectionView()
     }
     
+    // MARK: - Private methods
+    
+    /// Sets up collectionView.
     private func setupCollectionView() {
         collectionView.collectionViewLayout = CityWeatherLayout.createLayout()
         collectionView.backgroundColor = .clear
         
-        viewModel.$dailyForecast
+        viewModel?.$dailyForecast
             .sink { [unowned self] in
                 dailyForecasts = $0
             }
             .store(in: &cancellables)
         
-        viewModel.$hourlyForecast
+        viewModel?.$hourlyForecast
             .sink { [unowned self] in
                 hourlyForecasts = $0
             }
@@ -81,6 +97,8 @@ class CityWeatherViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension CityWeatherViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
@@ -98,6 +116,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch Section(rawValue: indexPath.section) {
         case .currentWeather:
+            guard let viewModel = viewModel else { return UICollectionViewCell() }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CurrentWeatherCell", for: indexPath) as! CurrentWeatherCell
             cell.update(with: viewModel)
             return cell
