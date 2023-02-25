@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+/// Cell for the current city.
 class CurrentWeatherCell: UICollectionViewCell {
     static let reuseIdentifier = "CurrentWeatherCell"
     
@@ -27,6 +28,8 @@ class CurrentWeatherCell: UICollectionViewCell {
 }
 
 extension CurrentWeatherCell {
+    /// Updates city cell from viewModel.
+    /// - Parameter viewModel: `CityWeatherViewModel` to get values from.
     func update(with viewModel: CityWeatherViewModel) {
         cityNameLabel.text = viewModel.cityName
         

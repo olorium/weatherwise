@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Cell with content.
 class ContentCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
@@ -15,6 +16,9 @@ class ContentCell: UICollectionViewCell {
         backgroundView = GradientView(colors: [UIColor(named: "weatherBlue100")!, UIColor(named: "weatherBlue200")!])
     }
     
+    /// Content view for the cell.
+    ///
+    ///  Adds and constraints `innerContentView`.
     var content: UIView? {
         willSet {
             if contentView.subviews.first == newValue {

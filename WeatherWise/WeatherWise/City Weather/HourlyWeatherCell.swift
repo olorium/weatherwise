@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Cell with hourly weather.
 class HourlyWeatherCell: UICollectionViewCell {
     static let reuseIdentifier = "HourlyWeatherCell"
     
@@ -15,6 +16,8 @@ class HourlyWeatherCell: UICollectionViewCell {
 }
 
 extension HourlyWeatherCell {
+    /// Updates `HourlyWeatherCell` with valid info.
+    /// - Parameter viewModel: `HourlyForecastViewModel` with values to update from.
     func update(with viewModel: HourlyForecastViewModel) {
         timeLabel.text = viewModel.time
         tempLabel.text = viewModel.temperature

@@ -8,6 +8,8 @@
 import UIKit
 
 struct MyCitiesLayout {
+    /// Creates layout for the Cities screen
+    /// - Returns: `UICollectionViewCompositionalLayout` with cities.
     static func createLayout() -> UICollectionViewCompositionalLayout {
         let cityItem = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5)))
         cityItem.contentInsets = .init(top: 20, leading: 20, bottom: 20, trailing: 20)

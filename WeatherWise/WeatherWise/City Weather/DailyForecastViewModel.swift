@@ -9,13 +9,16 @@ import Foundation
 import WeatherKit
 import UIKit
 
+/// ViewModel to manage daily forecast.
 struct DailyForecastViewModel {
     
+    // MARK: - Private properties
     private let dateFormatter: DateFormatter
     private let tempFormatter: MeasurementFormatter
     private let date: Date
     private let metric: WeatherMetrics<DailyTemperatures>
     
+    // MARK: - Conputed properties
     var day: String {
         dateFormatter.string(from: date)
     }
@@ -44,6 +47,13 @@ struct DailyForecastViewModel {
         metric.weather.first.flatMap { WeatherConditionImage.image(for: $0) }
     }
     
+    
+    /// Creates a `DailyForecastViewModel`
+    /// - Parameters:
+    ///   - dateFormatter: DateFormatted to convert Date to day String.
+    ///   - tempFormatter: MeasurementFormatter to convert temperature to daily high and lo temperatures String.
+    ///   - date: Date to represent day.
+    ///   - metric: Weather condition description.
     init(dateFormatter: DateFormatter, tempFormatter: MeasurementFormatter, date: Date, metric: WeatherMetrics<DailyTemperatures>) {
         self.dateFormatter = dateFormatter
         self.tempFormatter = tempFormatter

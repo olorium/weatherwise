@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+/// Cell for cities.
 class CityCell: UICollectionViewCell {
     
     @IBOutlet weak var currentTemperatureLabel: UILabel!
@@ -30,6 +31,9 @@ class CityCell: UICollectionViewCell {
 }
 
 extension CityCell {
+    
+    /// Updates cell with City data.
+    /// - Parameter viewModel: ViewModel with appropriate data.
     func update(with viewModel: CityViewModel) {
         nameLabel.text = viewModel.cityName
         localityLabel.text = viewModel.cityLocality

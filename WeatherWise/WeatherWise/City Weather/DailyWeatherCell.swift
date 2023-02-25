@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// CollectionView cell with daily weather forecast.
 class DailyWeatherCell: UICollectionViewCell {
     static let reuseIdentifier = "DailyWeatherCell"
     
@@ -18,6 +19,9 @@ class DailyWeatherCell: UICollectionViewCell {
 }
 
 extension DailyWeatherCell {
+    
+    /// Updates `DailyWeatherCell` with viewModel values.
+    /// - Parameter viewModel: Corresponding `DailyForecastViewModel`.
     func update(with viewModel: DailyForecastViewModel) {
         dayLabel.text = viewModel.day
         

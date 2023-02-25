@@ -58,6 +58,7 @@ class AddCityViewModel: NSObject {
             .eraseToAnyPublisher()
     }
     
+    // MARK: - Geolocation.
     func geolocate(selectedIndex index: Int) -> AnyPublisher<City, Error> {
         assert(index < results.count)
         let result = results[index]
@@ -86,6 +87,7 @@ class AddCityViewModel: NSObject {
     }
 }
 
+// MARK: - Search delegate.
 extension AddCityViewModel: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         completionsSubject.send(completer.results)

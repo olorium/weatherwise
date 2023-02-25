@@ -31,6 +31,7 @@ class AddCityViewController: UITableViewController {
     private var diffableDatasource: UITableViewDiffableDataSource<Section, Result>!
     private var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +60,7 @@ class AddCityViewController: UITableViewController {
             .store(in: &cancellables)
     }
     
+    // MARK: - Configuration.
     private func configureTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         diffableDatasource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { (tv, indexPath, result) -> UITableViewCell? in

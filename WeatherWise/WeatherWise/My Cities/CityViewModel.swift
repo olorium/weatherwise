@@ -11,9 +11,15 @@ import WeatherKit
 import Combine
 
 class CityViewModel: Equatable, Hashable {
+    // MARK: - Private properties.
     private let city: City
     private let weather: AnyPublisher<OneCallResult?, Never>
     
+    /// Creates new `CityViewModel`.
+    /// - Parameters:
+    ///   - city: City to create.
+    ///   - weather: Publisher with weather data.
+    ///   - tempFormatter: Formatter for weather values.
     init(city: City, weather: AnyPublisher<OneCallResult?, Never>, tempFormatter: MeasurementFormatter) {
         self.city = city
         self.weather = weather
@@ -37,6 +43,7 @@ class CityViewModel: Equatable, Hashable {
     @Published var currentTemperature: String = "--°"
 }
 
+// MARK: - Hashable.
 extension CityViewModel {
     static func ==(lhs: CityViewModel, rhs: CityViewModel) -> Bool {
         return lhs.city == rhs.city

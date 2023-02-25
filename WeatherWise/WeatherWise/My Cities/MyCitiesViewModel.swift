@@ -10,7 +10,9 @@ import UIKit
 import WeatherKit
 import Combine
 
+/// ViewModel to configure `My Cities` screen.
 class MyCitiesViewModel {
+    
     enum Section: Int {
         case cities
     }
@@ -37,6 +39,9 @@ class MyCitiesViewModel {
             .eraseToAnyPublisher()
     }
     
+    /// ContextMenu to handle cities.
+    /// - Parameter index: Index of the city.
+    /// - Returns: UIMenu with city.
     func contextMenu(for index: Int) -> UIMenu {
         let city = citiesStore.cities[index]
         let action = UIAction(title: "Delete City", attributes: [.destructive]) { [weak self] action in
@@ -47,6 +52,7 @@ class MyCitiesViewModel {
         return menu
     }
     
+    /// DataSource snapshot publisher.
     var snapshotPublisher: AnyPublisher<NSDiffableDataSourceSnapshot<Section, CityViewModel>, Never> {
         cities.map { cities in
             var snapshot = NSDiffableDataSourceSnapshot<Section, CityViewModel>()

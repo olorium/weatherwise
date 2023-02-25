@@ -17,6 +17,7 @@ class MyCitiesViewController: UICollectionViewController {
     
     private var diffableDatasource: UICollectionViewDiffableDataSource<MyCitiesViewModel.Section, CityViewModel>!
     
+    // MARK: - Lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +39,7 @@ class MyCitiesViewController: UICollectionViewController {
             .store(in: &cancellables)
     }
     
+    // MARK: - Actions
     @objc private func addCityTapped() {
         let addCityVC = AddCityViewController()
         let addCityNav = UINavigationController(rootViewController: addCityVC)

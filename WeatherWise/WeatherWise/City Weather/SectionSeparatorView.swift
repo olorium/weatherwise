@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Custom section separator.
 class SectionSeparatorView: UICollectionReusableView {
     static let reuseIdentifier = "SectionSeparatorView"
     
@@ -20,6 +21,7 @@ class SectionSeparatorView: UICollectionReusableView {
         configure()
     }
     
+    /// Configures separator.
     private func configure() {
         isOpaque = false
         backgroundColor = .clear
